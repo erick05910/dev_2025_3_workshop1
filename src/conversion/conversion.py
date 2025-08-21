@@ -33,7 +33,7 @@ class Conversion:
             fahrenheit_a_celsius(32) -> 0.0
             fahrenheit_a_celsius(212) -> 100.0
         """
-        pass
+        return (fahrenheit - 32) * 5 / 9
     
     def metros_a_pies(self, metros):
         """
@@ -50,7 +50,7 @@ class Conversion:
         Ejemplo:
             metros_a_pies(1) -> 3.28084
         """
-        pass
+        return round(metros * 3.28084, 5)
     
     def pies_a_metros(self, pies):
         """
@@ -67,7 +67,7 @@ class Conversion:
         Ejemplo:
             pies_a_metros(3.28084) -> 1.0
         """
-        pass
+        
     
     def decimal_a_binario(self, decimal):
         """
@@ -83,7 +83,7 @@ class Conversion:
             decimal_a_binario(10) -> "1010"
             decimal_a_binario(255) -> "11111111"
         """
-        pass
+        
     
     def binario_a_decimal(self, binario):
         """
@@ -99,7 +99,7 @@ class Conversion:
             binario_a_decimal("1010") -> 10
             binario_a_decimal("11111111") -> 255
         """
-        pass
+        
     
     def decimal_a_romano(self, numero):
         """
@@ -115,7 +115,7 @@ class Conversion:
             decimal_a_romano(9) -> "IX"
             decimal_a_romano(1994) -> "MCMXCIV"
         """
-        pass
+        
     
     def romano_a_decimal(self, romano):
         """
@@ -131,7 +131,7 @@ class Conversion:
             romano_a_decimal("IX") -> 9
             romano_a_decimal("MCMXCIV") -> 1994
         """
-        pass
+        
     
     def texto_a_morse(self, texto):
         """
@@ -147,7 +147,7 @@ class Conversion:
             texto_a_morse("SOS") -> "... --- ..."
             texto_a_morse("HELLO") -> ".... . .-.. .-.. ---"
         """
-        pass
+        
     
     def morse_a_texto(self, morse):
         """
@@ -163,4 +163,4 @@ class Conversion:
             morse_a_texto("... --- ...") -> "SOS"
             morse_a_texto(".... . .-.. .-.. ---") -> "HELLO"
         """
-        pass
+        
