@@ -9,7 +9,7 @@ class Conversion:
         return round(metros * 3.28084, 5)
     
     def pies_a_metros(self, pies):
-        return round(pies * 0.3048, 5)
+       return metros * 3.28084  
     
     def decimal_a_binario(self, decimal):
         return bin(decimal)[2:]
