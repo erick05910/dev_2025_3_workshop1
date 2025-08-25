@@ -12,6 +12,10 @@ class Games:
             "papel": "piedra"
         }
         
+        # Validar entradas
+        if jugador1 not in reglas or jugador2 not in reglas:
+            return "invalid"
+
         if jugador1 == jugador2:
             return "empate"
         elif reglas[jugador1] == jugador2:
@@ -28,29 +32,41 @@ class Games:
             return "muy bajo"
 
     def ta_te_ti_ganador(self, tablero):
-        # filas y columnas
-        for i in range(3):
-            if tablero[i][0] == tablero[i][1] == tablero[i][2] and tablero[i][0] not in (" ", ""):
-                return tablero[i][0]
-            if tablero[0][i] == tablero[1][i] == tablero[2][i] and tablero[0][i] not in (" ", ""):
-                return tablero[0][i]
+        # Verificar filas
+        for fila in tablero:
+            if fila[0] != " " and fila[0] == fila[1] == fila[2]:
+                return fila[0]
 
-        # diagonales
-        if tablero[0][0] == tablero[1][1] == tablero[2][2] and tablero[0][0] not in (" ", ""):
+        # Verificar columnas
+        for col in range(3):
+            if tablero[0][col] != " " and tablero[0][col] == tablero[1][col] == tablero[2][col]:
+                return tablero[0][col]
+
+        # Verificar diagonales
+        if tablero[0][0] != " " and tablero[0][0] == tablero[1][1] == tablero[2][2]:
             return tablero[0][0]
-        if tablero[0][2] == tablero[1][1] == tablero[2][0] and tablero[0][2] not in (" ", ""):
+        if tablero[0][2] != " " and tablero[0][2] == tablero[1][1] == tablero[2][0]:
             return tablero[0][2]
 
-        # empate o continua
+        # Si aún hay casillas vacías → el juego sigue
         for fila in tablero:
-            if " " in fila or "" in fila:
-                return "continua"
+            for celda in fila:
+                if celda == " ":
+                    return "continua"
+
+        # Si no hay vacíos y nadie ganó → empate
         return "empate"
 
     def generar_combinacion_mastermind(self, longitud, colores_disponibles):
         return [random.choice(colores_disponibles) for _ in range(longitud)]
 
     def validar_movimiento_torre_ajedrez(self, desde_fila, desde_col, hasta_fila, hasta_col, tablero):
+        n = len(tablero)  # tamaño del tablero (normalmente 8)
+
+        # Validar dentro de límites
+        if not (0 <= desde_fila < n and 0 <= desde_col < n and 0 <= hasta_fila < n and 0 <= hasta_col < n):
+            return False
+
         # No se puede quedar en el mismo lugar
         if desde_fila == hasta_fila and desde_col == hasta_col:
             return False
