@@ -24,11 +24,12 @@ class Data:
     
     def eliminar_duplicados(self, lista):
         """
-        Elimina elementos duplicados de una lista sin usar set().
+        Elimina elementos duplicados de una lista sin usar set(),
+        considerando valor y tipo (ej. 1 ≠ True).
         """
         resultado = []
         for elem in lista:
-            if elem not in resultado:
+            if not any((elem == e and type(elem) == type(e)) for e in resultado):
                 resultado.append(elem)
         return resultado
     
