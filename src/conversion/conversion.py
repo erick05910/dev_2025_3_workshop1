@@ -6,10 +6,10 @@ class Conversion:
         return (fahrenheit - 32) * 5 / 9
     
     def metros_a_pies(self, metros):
-        return round(metros * 3.28084, 5)
+        return metros * 3.28084   # sin round para que el test pase
     
     def pies_a_metros(self, pies):
-       return metros * 3.28084  
+        return pies / 3.28084
     
     def decimal_a_binario(self, decimal):
         return bin(decimal)[2:]
