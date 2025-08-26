@@ -38,45 +38,32 @@ class Games:
             "O" si gana O
             "empate" si tablero lleno sin ganador
             "continua" si aún hay casillas vacías y no hay ganador
-
-        Nota: Solo cuentan como marcas válidas "X" y "O" (mayúsculas).
-              Cualquier otro valor (None, "", " ", "x", "o", 0, etc.) se toma como vacío.
         """
-        VAL = {"X", "O"}
+        vacio = {"", " "}  # considerar estos como casillas vacías
 
-        def mark(celda):
-            # Normaliza: solo "X" u "O" exactas cuentan
-            if isinstance(celda, str):
-                s = celda.strip()
-                return s if s in VAL else ""
-            return ""
+        # Verificar filas
+        for fila in tablero:
+            if fila[0] not in vacio and fila[0] == fila[1] == fila[2]:
+                return fila[0]
 
-        # Revisar filas
-        for r in range(3):
-            a, b, c = mark(tablero[r][0]), mark(tablero[r][1]), mark(tablero[r][2])
-            if a and a == b == c:
-                return a
-
-        # Revisar columnas
+        # Verificar columnas
         for col in range(3):
-            a, b, c = mark(tablero[0][col]), mark(tablero[1][col]), mark(tablero[2][col])
-            if a and a == b == c:
-                return a
+            if tablero[0][col] not in vacio and tablero[0][col] == tablero[1][col] == tablero[2][col]:
+                return tablero[0][col]
 
-        # Revisar diagonales
-        a, b, c = mark(tablero[0][0]), mark(tablero[1][1]), mark(tablero[2][2])
-        if a and a == b == c:
-            return a
-        a, b, c = mark(tablero[0][2]), mark(tablero[1][1]), mark(tablero[2][0])
-        if a and a == b == c:
-            return a
+        # Verificar diagonales
+        if tablero[0][0] not in vacio and tablero[0][0] == tablero[1][1] == tablero[2][2]:
+            return tablero[0][0]
+        if tablero[0][2] not in vacio and tablero[0][2] == tablero[1][1] == tablero[2][0]:
+            return tablero[0][2]
 
         # ¿Hay casillas vacías?
         for fila in tablero:
             for celda in fila:
-                if mark(celda) == "":
+                if celda in vacio:
                     return "continua"
 
+        # Si no hay vacíos y nadie ganó → empate
         return "empate"
 
     def generar_combinacion_mastermind(self, longitud, colores_disponibles):
@@ -101,13 +88,13 @@ class Games:
         if desde_fila == hasta_fila:
             paso = 1 if hasta_col > desde_col else -1
             for c in range(desde_col + paso, hasta_col, paso):
-                if str(tablero[desde_fila][c]).strip() != "":
+                if str(tablero[desde_fila][c]).strip() not in {"", " "}:
                     return False
         else:
             # Movimiento vertical
             paso = 1 if hasta_fila > desde_fila else -1
             for f in range(desde_fila + paso, hasta_fila, paso):
-                if str(tablero[f][desde_col]).strip() != "":
+                if str(tablero[f][desde_col]).strip() not in {"", " "}:
                     return False
 
         return True
