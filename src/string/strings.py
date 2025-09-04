@@ -1,3 +1,5 @@
+import re
+
 class Strings:
     """
     Clase con métodos para manipulación y operaciones con cadenas de texto.
@@ -37,14 +39,15 @@ class Strings:
         return len([p for p in texto.split(" ") if p.strip() != ""])
     
     def palabras_mayus(self, texto):
-        """Convierte en mayúscula la primera letra de cada palabra."""
-        palabras = texto.split()
-        return " ".join(p.capitalize() for p in palabras)
+        """Convierte en mayúscula la primera letra de cada palabra, manteniendo los espacios."""
+        def capitalizar(match):
+            palabra = match.group(0)
+            return palabra.capitalize()
+        return re.sub(r'\S+', capitalizar, texto)
     
     def eliminar_espacios_duplicados(self, texto):
-        """Elimina espacios duplicados en una cadena."""
-        palabras = texto.split()
-        return " ".join(palabras)
+        """Elimina espacios duplicados entre palabras, mantiene espacios al inicio y final."""
+        return re.sub(r' {2,}', ' ', texto)
     
     def es_numero_entero(self, texto):
         """Verifica si una cadena representa un número entero."""
@@ -72,6 +75,8 @@ class Strings:
     
     def encontrar_subcadena(self, texto, subcadena):
         """Encuentra todas las posiciones de una subcadena en un texto."""
+        if not subcadena:
+            return []
         posiciones = []
         n, m = len(texto), len(subcadena)
         for i in range(n - m + 1):
